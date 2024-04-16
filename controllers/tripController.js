@@ -1,0 +1,94 @@
+"use strict";
+
+const firebase = require("../db");
+const Trip = require("../models/trip");
+const fireStore = firebase.firestore();
+
+
+// const getHomePage = async (req, res, next) => {
+//     return res.render('index.ejs');
+// };
+
+const addTrip = async (req, res, next) => {
+    try {
+        const data = req.body;
+        await fireStore.collection("trips").doc().set(data);
+        res.send("Record saved successfuly");
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+const getAllTrips = async (req, res, next) => {
+    try {
+        const trips = await fireStore.collection("trips");
+        const data = await trips.get();
+        const tripsArray = [];
+        if (data.empty) {
+            res.status(404).send("No trip record found");
+        } else {
+            data.forEach((doc) => {
+                const trip = new Trip(
+                    doc.id,
+                    doc.data().arrivalTime,
+                    doc.data().departure,
+                    doc.data().departureTime,
+                    doc.data().destination,
+                    doc.data().driverId,
+                    doc.data().tripStatus,
+                    doc.data().vehicleId
+                );
+                tripsArray.push(trip);
+            });
+            res.send(tripsArray);
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+const getTrip = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const trip = await fireStore.collection("trips").doc(id);
+        const data = await trip.get();
+        if (!data.exists) {
+            res.status(404).send("Trip with the given ID not found");
+        } else {
+            res.send(data.data());
+        }
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+const updateTrip = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        const data = req.body;
+        const trip = await fireStore.collection("trips").doc(id);
+        await trip.update(data);
+        res.send("Trip record updated successfuly");
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+const deleteTrip = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        await fireStore.collection("trips").doc(id).delete();
+        res.send("Record deleted successfuly");
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+};
+
+module.exports = {
+    addTrip,
+    getAllTrips,
+    getTrip,
+    updateTrip,
+    deleteTrip,
+    //getHomePage,
+};
