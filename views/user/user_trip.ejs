@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>SVN8 TRIP</title>
 
 </head>
@@ -16,24 +16,7 @@
 <script type="text/javascript">
     $(document).ready(function ($) {
         //ajax row data
-        var ajax_data =
-            [
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", },
-                { driverId: "d1", vehicleId: "v1", departureTime: "6 am", arrivalTime: "9pm", departure: "A city", destination: "B city", fuelCost: "30000", }
-            ]
-
-        var random_id = function () {
-            var id_num = Math.random().toString(9).substr(2, 3);
-            var id_str = Math.random().toString(36).substr(2);
-            return id_num + id_str;
-        }
+        var ajax_data = <%- JSON.stringify(tripsArray) %>;
 
         //--->create data table > start
         var tbl = '';
@@ -61,7 +44,7 @@
         //--->create table body rows > start
         $.each(ajax_data, function (index, val) {
             //you can replace with your database row id
-            var row_id = random_id();
+            var row_id = val['id'];
 
             //loop through ajax row data
             tbl += '<tr row_id="' + row_id + '">';
@@ -223,7 +206,7 @@
     <nav>
         <div class="nav__header">
             <div class="logo nav__logo">
-                <a href="user_page.html">SVN8<span>TEAM</span></a>
+                <a href="user_page">SVN8<span>TEAM</span></a>
             </div>
             <div class="nav__menu__btn" id="menu-btn">
                 <span><i class="ri-menu-line"></i></span>

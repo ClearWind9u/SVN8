@@ -4,16 +4,11 @@ const firebase = require("../db");
 const Vehicle = require("../models/vehicle");
 const fireStore = firebase.firestore();
 
-
-// const getHomePage = async (req, res, next) => {
-//     return res.render('index.ejs');
-// };
-
 const addVehicle = async (req, res, next) => {
     try {
         const data = req.body;
         await fireStore.collection("vehicles").doc().set(data);
-        res.send("Record saved successfuly");
+        return res.redirect("./admin_vehicle");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -30,15 +25,14 @@ const getAllVehicles = async (req, res, next) => {
             data.forEach((doc) => {
                 const vehicle = new Vehicle(
                     doc.id,
+                    doc.data().vehicleType,
                     doc.data().carManufacturer,
                     doc.data().dimension,
-                    doc.data().fuelCost,
-                    doc.data().fuelType,
                     doc.data().licensePlate,
                     doc.data().loadCapacity,
-                    doc.data().maintenanceHistory,
+                    doc.data().fuelType,
                     doc.data().vehicleCost,
-                    doc.data().vehicleType
+                    doc.data().maintenanceHistory
                 );
                 vehiclesArray.push(vehicle);
             });
@@ -66,11 +60,13 @@ const getVehicle = async (req, res, next) => {
 
 const updateVehicle = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const data = req.body;
+        let user = decodeURIComponent(req.params.user);
+        user = JSON.parse(user);
+        const id = user.id;
+        delete user.id;
         const vehicle = await fireStore.collection("vehicles").doc(id);
-        await vehicle.update(data);
-        res.send("Vehicle record updated successfuly");
+        await vehicle.update(user);
+        return res.redirect("../admin_vehicle");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -80,7 +76,7 @@ const deleteVehicle = async (req, res, next) => {
     try {
         const id = req.params.id;
         await fireStore.collection("vehicles").doc(id).delete();
-        res.send("Record deleted successfuly");
+        return res.redirect("../admin_vehicle");
     } catch (error) {
         res.status(400).send(error.message);
     }

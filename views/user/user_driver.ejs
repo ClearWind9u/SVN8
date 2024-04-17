@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
     <title>SVN8 DRIVER</title>
 
 </head>
@@ -16,25 +16,7 @@
 <script type="text/javascript">
     $(document).ready(function ($) {
         //ajax row data
-        var ajax_data =
-            [
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", },
-                { fullname: "Nguyen Van A", address: "#", phoneNumber: "0123456789", yearOfExperience: "5", identityCardNumber: "01234567", driverLicenseNumber: "0123456789", driverLicenseClass: "C", }
-            ]
-
-        var random_id = function () {
-            var id_num = Math.random().toString(9).substr(2, 3);
-            var id_str = Math.random().toString(36).substr(2);
-            return id_num + id_str;
-        }
+        var ajax_data = <%- JSON.stringify(driversArray) %>;
 
         //--->create data table > start
         var tbl = '';
@@ -62,17 +44,16 @@
         //--->create table body rows > start
         $.each(ajax_data, function (index, val) {
             //you can replace with your database row id
-            var row_id = random_id();
-
+            var row_id = val['id'];
             //loop through ajax row data
             tbl += '<tr row_id="' + row_id + '">';
-            tbl += '<td ><div class="row_data" edit_type="click" col_name="fullname">' + val['fullname'] + '</div></td>';
+            tbl += '<td ><div class="row_data" edit_type="click" col_name="name">' + val['name'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="address">' + val['address'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="phoneNumber">' + val['phoneNumber'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="yearOfExperience">' + val['yearOfExperience'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="identityCardNumber">' + val['identityCardNumber'] + '</div></td>';
-            tbl += '<td ><div class="row_data" edit_type="click" col_name="driverLicenseNumber">' + val['driverLicenseNumber'] + '</div></td>';
-            tbl += '<td ><div class="row_data" edit_type="click" col_name="driverLicenseClass">' + val['driverLicenseClass'] + '</div></td>';
+            tbl += '<td ><div class="row_data" edit_type="click" col_name="drivingLicenseNumber">' + val['drivingLicenseNumber'] + '</div></td>';
+            tbl += '<td ><div class="row_data" edit_type="click" col_name="drivingLicenseClass">' + val['drivingLicenseClass'] + '</div></td>';
         });
 
         //--->create table body rows > end

@@ -1,5 +1,6 @@
 class Trip {
     constructor(
+        id,
         arrivalTime,
         departure,
         departureTime,
@@ -7,7 +8,9 @@ class Trip {
         driverId,
         tripStatus,
         vehicleId,
+        fuelCost,
     ) {
+        this.id = id;
         this.arrivalTime = arrivalTime;
         this.departure = departure;
         this.departureTime = departureTime;
@@ -15,6 +18,7 @@ class Trip {
         this.driverId = driverId;
         this.tripStatus = tripStatus;
         this.vehicleId = vehicleId;
+        this.fuelCost = fuelCost;
     }
 }
 

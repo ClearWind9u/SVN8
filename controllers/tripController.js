@@ -4,16 +4,11 @@ const firebase = require("../db");
 const Trip = require("../models/trip");
 const fireStore = firebase.firestore();
 
-
-// const getHomePage = async (req, res, next) => {
-//     return res.render('index.ejs');
-// };
-
 const addTrip = async (req, res, next) => {
     try {
         const data = req.body;
         await fireStore.collection("trips").doc().set(data);
-        res.send("Record saved successfuly");
+        return res.redirect("./admin_trip");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -36,7 +31,8 @@ const getAllTrips = async (req, res, next) => {
                     doc.data().destination,
                     doc.data().driverId,
                     doc.data().tripStatus,
-                    doc.data().vehicleId
+                    doc.data().vehicleId,
+                    doc.data().fuelCost
                 );
                 tripsArray.push(trip);
             });
@@ -64,11 +60,13 @@ const getTrip = async (req, res, next) => {
 
 const updateTrip = async (req, res, next) => {
     try {
-        const id = req.params.id;
-        const data = req.body;
+        let user = decodeURIComponent(req.params.user);
+        user = JSON.parse(user);
+        const id = user.id;
+        delete user.id;
         const trip = await fireStore.collection("trips").doc(id);
-        await trip.update(data);
-        res.send("Trip record updated successfuly");
+        await trip.update(user);
+        return res.redirect("../admin_trip");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -78,7 +76,7 @@ const deleteTrip = async (req, res, next) => {
     try {
         const id = req.params.id;
         await fireStore.collection("trips").doc(id).delete();
-        res.send("Record deleted successfuly");
+        return res.redirect("../admin_trip");
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -90,5 +88,4 @@ module.exports = {
     getTrip,
     updateTrip,
     deleteTrip,
-    //getHomePage,
 };

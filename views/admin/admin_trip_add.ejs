@@ -12,7 +12,15 @@
     <title>CREATE TRIP</title>
 
 </head>
-
+<script>
+    function trimInput() {
+        $(".input").each(function(index, val){
+            const inputValue =  $(this).val().trim();
+            const name = $(this).attr('name');
+            $(this).val(inputValue);
+        });
+    }
+</script>
 <body>
     <nav>
         <div class="nav__header">
@@ -52,40 +60,40 @@
     </section>
 
     <div class="container">
-        <form action="#">
+        <form action="./create-new-trip" method="post">
             <div class="formfirst">
                 <div class="details">
                     <div class="fields">
                         <div class="input-field">
                             <label>Driver ID:</label>
-                            <input type="text" placeholder="Enter Driver ID">
+                            <input class="input" type="text" placeholder="Enter Driver ID" name="driverId" required>
                         </div>
                         <div class="input-field">
                             <label>Vehicle ID:</label>
-                            <input type="text" placeholder="Enter Vehicle ID">
+                            <input class="input" type="text" placeholder="Enter Vehicle ID" name="vehicleId" required>
                         </div>
                         <div class="input-field">
                             <label>Departure time:</label>
-                            <input type="date" placeholder="Enter Departure time:">
+                            <input class="input" type="date" placeholder="Enter Departure time:" name="departureTime" required>
                         </div>
                         <div class="input-field">
                             <label>Arrival time:</label>
-                            <input type="date" placeholder="Enter Arrival time">
+                            <input class="input" type="date" placeholder="Enter Arrival time" name="arrivalTime" required>
                         </div>
                         <div class="input-field">
                             <label>Departure:</label>
-                            <input type="text" placeholder="Enter Departure">
+                            <input class="input" type="text" placeholder="Enter Departure" name="departure" required>
                         </div>
                         <div class="input-field">
                             <label>Destination:</label>
-                            <input type="text" placeholder="Enter Destination">
+                            <input class="input" type="text" placeholder="Enter Destination" name="destination" required>
                         </div>
                         <div class="input-field">
                             <label>Fuel cost:</label>
-                            <input type="text" placeholder="Enter Fuel cost">
+                            <input class="input" type="text" placeholder="Enter Fuel cost" name="fuelCost" required>
                         </div>
                     </div>
-                    <button class="nextBtn">
+                    <button class="nextBtn" type="submit" onclick="trimInput()">
                         <span class="btnNext">Save</span>
                         <i class="uil uil-navigator"></i>
                     </button>

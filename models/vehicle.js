@@ -1,24 +1,24 @@
 class Vehicle {
     constructor(
+        id,
+        vehicleType,
         carManufacturer,
         dimension,
-        fuelCost,
-        fuelType,
         licensePlate,
         loadCapacity,
-        maintenanceHistory,
+        fuelType,
         vehicleCost,
-        vehicleType,
+        maintenanceHistory,
     ) {
+        this.id = id,
+        this.vehicleType = vehicleType;
         this.carManufacturer = carManufacturer;
         this.dimension = dimension;
-        this.fuelCost = fuelCost;
-        this.fuelType = fuelType;
         this.licensePlate = licensePlate;
         this.loadCapacity = loadCapacity;
-        this.maintenanceHistory = maintenanceHistory;
+        this.fuelType = fuelType;
         this.vehicleCost = vehicleCost;
-        this.vehicleType = vehicleType;
+        this.maintenanceHistory = maintenanceHistory;
     }
 }
 

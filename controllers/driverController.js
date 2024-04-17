@@ -76,7 +76,7 @@ const deleteDriver = async (req, res, next) => {
     try {
         const id = req.params.id;
         await fireStore.collection("drivers").doc(id).delete();
-    return res.redirect("../admin_driver");
+        return res.redirect("../admin_driver");
     } catch (error) {
         res.status(400).send(error.message);
     }

@@ -12,7 +12,15 @@
     <title>ADD NEW VEHICLE</title>
 
 </head>
-
+<script>
+    function trimInput() {
+        $(".input").each(function(index, val){
+            const inputValue =  $(this).val().trim();
+            const name = $(this).attr('name');
+            $(this).val(inputValue);
+        });
+    }
+</script>
 <body>
     <nav>
         <div class="nav__header">
@@ -48,47 +56,49 @@
         </div>
     </header>
     <section class="section__container special__container" id="special">
-        <h2 class="section__header">Add a new driver:</h2>
+        <h2 class="section__header">Add a new vehicle:</h2>
     </section>
 
     <div class="container">
-        <form action="#">
+        <form action="./create-new-vehicle" method="post">
             <div class="formfirst">
                 <div class="details">
                     <div class="fields">
                         <div class="input-field">
                             <label>Vehicle Type:</label>
-                            <input type="text" placeholder="Enter Vehicle Type">
+                            <input class="input" type="text" placeholder="Enter Vehicle Type" name="vehicleType" required>
                         </div>
                         <div class="input-field">
                             <label>Manufacturer:</label>
-                            <input type="text" placeholder="Enter Manufacturer">
+                            <input class="input" type="text" placeholder="Enter Manufacturer" name="carManufacturer" required>
                         </div>
                         <div class="input-field">
                             <label>Dimension:</label>
-                            <input type="text" placeholder="Enter Dimension">
+                            <input class="input" type="text" placeholder="Enter Dimension" name="dimension" required>
+                        </div>
+                        <div class="input-field">
+                            <label>License Plate:</label>
+                            <input class="input" type="text" placeholder="Enter Dimension" name="licensePlate" required>
                         </div>
                         <div class="input-field">
                             <label>Load Capacity:</label>
-                            <input type="texts" placeholder="Enter Load Capacity">
+                            <input class="input" type="texts" placeholder="Enter Load Capacity" name="loadCapacity" required>
                         </div>
                         <div class="input-field">
                             <label>Fuel Type:</label>
-                            <input type="text" placeholder="Enter Fuel Type">
+                            <input class="input" type="text" placeholder="Enter Fuel Type" name="fuelType" required>
                         </div>
                         <div class="input-field">
                             <label>Vehicle Cost:</label>
-                            <input type="text" placeholder="Enter Vehicle Cose">
+                            <input class="input" type="text" placeholder="Enter Vehicle Cose" name="vehicleCost" required>
                         </div>
                     </div>
-                    <button class="nextBtn">
+                    <button class="nextBtn" type="submit" onclick="trimInput()">
                         <span class="btnNext">Save</span>
                         <i class="uil uil-navigator"></i>
                     </button>
                 </div>
             </div>
-
-
         </form>
     </div>
 
