@@ -3,6 +3,7 @@ const {
     getPageAdmin,
     getReportAdmin,
     getLoginAdmin,
+    checkLoginAdmin,
 
     getDriverAdmin,
     addDriverAdmin,
@@ -28,6 +29,7 @@ const router = express.Router();
 
 router.get("/login_admin", getLoginAdmin);
 router.get("/admin_page", getPageAdmin);
+router.post("/check-login-admin", checkLoginAdmin);
 router.get("/admin_report", getReportAdmin);
 
 router.get("/admin_driver", getDriverAdmin);

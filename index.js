@@ -9,6 +9,7 @@ const vehicleRoutes = require("./routes/vehicle-routes");
 const webRoutes = require("./routes/web-routes");
 const adminRoutes = require("./routes/admin-routes");
 const userRoutes = require('./routes/user-routes');
+const adminAccountRoutes = require("./routes/admin-account-routes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/api", tripRoutes.routes);
 app.use("/api", vehicleRoutes.routes);
 app.use("/admin", adminRoutes.routes);
 app.use("/user", userRoutes.routes);
+app.use("/api", adminAccountRoutes.routes);
 app.use("", webRoutes.routes);
 
 app.listen(config.port, () =>

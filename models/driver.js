@@ -8,6 +8,7 @@ class Driver {
     identityCardNumber,
     phoneNumber,
     yearOfExperience,
+    password,
   ) {
     this.id = id;
     this.name = name;
@@ -17,6 +18,7 @@ class Driver {
     this.identityCardNumber = identityCardNumber;
     this.phoneNumber = phoneNumber;
     this.yearOfExperience = yearOfExperience;
+    this.password = password;
   }
 }
 

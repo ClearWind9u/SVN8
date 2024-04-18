@@ -13,7 +13,15 @@
 
   <title>Login</title>
 </head>
-
+<script>
+  function trimInput() {
+          $(".input").each(function(index, val){
+              const inputValue =  $(this).val().trim();
+              const name = $(this).attr('name');
+              $(this).val(inputValue);
+          });
+      }
+</script>
 <body>
   <div class="l-form">
     <div class="shape1"></div>
@@ -22,7 +30,7 @@
     <div class="form">
       <img src="assets/login/img/authentication.svg" alt="" class="form__img">
 
-      <form action="user_page" class="form__content">
+      <form action="./check-login-user" class="form__content" method="post">
         <h1 class="form__title">Welcome</h1>
         <p>Phone Number:</p>
         <div class="form__div form__div-one">
@@ -31,7 +39,7 @@
           </div>
 
           <div class="form__div-input">
-            <input type="text" class="form__input">
+            <input type="text" class="form__input" name="phoneNumber" required>
           </div>
         </div>
         <p>Password:</p>
@@ -41,11 +49,13 @@
           </div>
 
           <div class="form__div-input">
-            <input type="password" class="form__input">
+            <input type="password" class="form__input" name="password" required>
           </div>
         </div>
-
-        <input type="submit" class="form__button" value="Login">
+        <div class = <%- check %> ? "true" : "false">
+          Wrong phonenumber or password!!!
+        </div>
+        <input type="submit" class="form__button" value="Login" onclick="trimInput()">
       </form>
     </div>
 

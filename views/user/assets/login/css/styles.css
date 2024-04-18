@@ -230,4 +230,11 @@ img{
         justify-self: center;
     }
 }
-
+.true {
+    display: none;
+}
+.false {
+    display: block;
+    color: red;
+    margin-bottom: 10px;
+}

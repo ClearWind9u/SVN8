@@ -3,6 +3,7 @@ const {
     getPageUser,
     getReportUser,
     getLoginUser,
+    checkLoginUser,
 
     getDriverUser,
     addDriverUser,
@@ -18,6 +19,7 @@ const {
 const router = express.Router();
 
 router.get("/login_user", getLoginUser);
+router.post("/check-login-user", checkLoginUser);
 router.get("/user_page", getPageUser);
 router.get("/user_report", getReportUser);
 

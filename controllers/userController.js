@@ -6,9 +6,34 @@ const Vehicle = require("../models/vehicle");
 const Trip = require("../models/trip");
 const fireStore = firebase.firestore();
 
+let check = true;
+
 const getLoginUser = async (req, res, next) => {
-    return res.render('user/login_user.ejs');
+    check = true;
+    return res.render('user/login_user.ejs', {check : check});
 };
+const checkLoginUser = async (req, res, next) => {
+    const data = req.body;
+    let user;
+    const driver = await fireStore.collection("drivers").where("phoneNumber", "==", data.phoneNumber).get();
+    driver.forEach(doc => {
+        user = doc.data();
+    });
+    if (user) {
+        if (user.password == data.password) {
+            check = true;
+            return res.redirect("./user_page");
+        }
+        else {
+            check = false;
+            return res.render('user/login_user.ejs', {check : check});
+        }
+    }
+    else {
+        check = false;
+        return res.render('user/login_user.ejs', {check : check});
+    }
+}
 const getPageUser = async (req, res, next) => {
     return res.render('user/user_page.ejs');
 };
@@ -110,6 +135,7 @@ const addVehicleUser = async (req, res, next) => {
 
 module.exports = {
     getLoginUser,
+    checkLoginUser,
     getDriverUser,
     addDriverUser,
     getPageUser,

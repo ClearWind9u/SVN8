@@ -4,11 +4,37 @@ const firebase = require("../db");
 const Driver = require("../models/driver");
 const Vehicle = require("../models/vehicle");
 const Trip = require("../models/trip");
+const Admin = require("../models/admin");
 const fireStore = firebase.firestore();
 
+let check = true;
+
 const getLoginAdmin = async (req, res, next) => {
-    return res.render('admin/login_admin.ejs');
+    check = true;
+    return res.render('admin/login_admin.ejs', {check : check});
 };
+const checkLoginAdmin = async (req, res, next) => {
+    const data = req.body;
+    let admin;
+    const driver = await fireStore.collection("admin").where("phoneNumber", "==", data.phoneNumber).get();
+    driver.forEach(doc => {
+        admin = doc.data();
+    });
+    if (admin) {
+        if (admin.password == data.password) {
+            check = true;
+            return res.redirect("./admin_page");
+        }
+        else {
+            check = false;
+            return res.render('user/login_user.ejs', {check : check});
+        }
+    }
+    else {
+        check = false;
+        return res.render('user/login_user.ejs', {check : check});
+    }
+}
 const getPageAdmin = async (req, res, next) => {
     return res.render('admin/admin_page.ejs');
 };
@@ -110,6 +136,7 @@ const addVehicleAdmin = async (req, res, next) => {
 
 module.exports = {
     getLoginAdmin,
+    checkLoginAdmin,
     getDriverAdmin,
     addDriverAdmin,
     getPageAdmin,

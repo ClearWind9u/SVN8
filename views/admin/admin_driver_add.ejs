@@ -14,11 +14,21 @@
 </head>
 <script>
     function trimInput() {
+        let isNum = true;
         $(".input").each(function(index, val){
             const inputValue =  $(this).val().trim();
             const name = $(this).attr('name');
             $(this).val(inputValue);
+            if (name == "phoneNumber" || name == "yearOfExperience" || name == "drivingLicenseNumber" || name == "identityCardNumber"){
+                isNum = isNum && !isNaN($(this).val());
+            }
         });
+        if (!isNum) {
+            $(".input").each(function(index, val){
+                $(this).val("");
+            });
+            alert("You must enter the right format of the input!");
+        }
     }
 </script>
 <body>
@@ -91,6 +101,10 @@
                         <div class="input-field">
                             <label>Identity card number:</label>
                             <input class="input" type="text" placeholder="Identity card number" name="identityCardNumber" required>
+                        </div>
+                        <div class="input-field">
+                            <label>Password:</label>
+                            <input class="input" type="text" placeholder="Password" name="password" required>
                         </div>
                     </div>
                     <button class="nextBtn" type="submit" onclick="trimInput()">

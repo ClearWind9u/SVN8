@@ -4,10 +4,21 @@ const firebase = require("../db");
 const Driver = require("../models/driver");
 const fireStore = firebase.firestore();
 
+var ID = 0;
+var strID = (length) => {
+    let pre = "";
+    let len = 4 - length;
+    for (let i = 0; i < len; i++){
+        pre += "0";
+    }
+    return pre;
+};
+
 const addDriver = async (req, res, next) => {
     try {
         const data = req.body;
-        await fireStore.collection("drivers").doc().set(data);
+        await fireStore.collection("drivers").doc(strID(ID.toString().length) + ID.toString()).set(data);
+        ID++;
         return res.redirect("./admin_driver");
     } catch (error) {
         res.status(400).send(error.message);
