@@ -33,6 +33,7 @@
             //--->create table header > start
             tbl += '<thead>';
             tbl += '<tr>';
+            tbl += '<th>Driver ID</th>';
             tbl += '<th>Full Name</th>';
             tbl += '<th>Address</th>';
             tbl += '<th>Phone number</th>';
@@ -55,6 +56,7 @@
                 var row_id = val['id'];
                 //loop through ajax row data
                 tbl += '<tr row_id="' + row_id + '">';
+                tbl += '<td><div class="row_data" edit_type="click" col_name="id">' + val['id'] + '</div></td>'; 
                 tbl += '<td><div class="row_data" edit_type="click" col_name="name">' + val['name'] + '</div></td>';
                 tbl += '<td><div class="row_data" edit_type="click" col_name="address">' + val['address'] + '</div></td>';
                 tbl += '<td><div class="row_data" edit_type="click" col_name="phoneNumber">' + val['phoneNumber'] + '</div></td>';
@@ -252,18 +254,17 @@
                 //use the "arr"	object for your ajax call
                 $.extend(arr, { id: row_id });
                 let check = checkNullObj(arr);
-                if(check){ 
-                    let user = encodeURIComponent(JSON.stringify(arr));
-                    alert("Edit successfully!");
-                    window.location.href = "./edit-driver/" + user;
-                }
-                else {
-                    alert("Edit failed. You must not leave the input empty!!!");
-                    window.location.href = "./admin_driver";
-                };
-            });
+            if(check){ 
+                let user = encodeURIComponent(JSON.stringify(arr));
+                alert("Edit successfully!");
+                window.location.href = "./edit-driver/" + user;
+            }
+            else {
+                alert("Edit failed. You must not leave the input empty!!!");
+                window.location.href = "./admin_driver";
+            };
         });
-
+    });
     </script>
     <nav>
         <div class="nav__header">
@@ -313,7 +314,9 @@
             Copyright © 2024 SVN8. All rights reserved.
         </div>
     </footer>
-
+    <script>
+        
+    </script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="assets/main.js"></script>

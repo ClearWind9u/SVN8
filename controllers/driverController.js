@@ -4,7 +4,6 @@ const firebase = require("../db");
 const Driver = require("../models/driver");
 const fireStore = firebase.firestore();
 
-var ID = 0;
 var strID = (length) => {
     let pre = "";
     let len = 4 - length;
@@ -17,8 +16,24 @@ var strID = (length) => {
 const addDriver = async (req, res, next) => {
     try {
         const data = req.body;
-        await fireStore.collection("drivers").doc(strID(ID.toString().length) + ID.toString()).set(data);
-        ID++;
+        // Lấy ID mới dạng số thứ tự tăng dần
+        const querySnapshot = await fireStore
+            .collection("drivers")
+            .orderBy("id", "desc")
+            .limit(1)
+            .get();
+        let newId = 1;
+  
+        if (!querySnapshot.empty) {
+            const lastDocument = querySnapshot.docs[0].data();
+            newId = parseInt(lastDocument.id, 0) + 1;
+        }
+  
+      // Thêm trường 'id' với giá trị số thứ tự tăng dần
+        data.id = strID(newId.toString().length) + newId.toString();
+  
+      // Thêm tài liệu mới với ID được tạo tự động
+        await fireStore.collection("drivers").doc(strID(newId.toString().length) + newId.toString()).set(data);
         return res.redirect("./admin_driver");
     } catch (error) {
         res.status(400).send(error.message);

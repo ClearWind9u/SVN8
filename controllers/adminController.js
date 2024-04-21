@@ -100,7 +100,7 @@ const getTripAdmin = async (req, res, next) => {
     }
 };
 const addTripAdmin = async (req, res, next) => {
-    return res.render('admin/admin_trip_add.ejs');
+    return res.render('admin/admin_trip_add.ejs',{check : true});
 };
 const getVehicleAdmin = async (req, res, next) => {
     try {

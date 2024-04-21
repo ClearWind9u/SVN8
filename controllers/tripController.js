@@ -7,8 +7,17 @@ const fireStore = firebase.firestore();
 const addTrip = async (req, res, next) => {
     try {
         const data = req.body;
-        await fireStore.collection("trips").doc().set(data);
-        return res.redirect("./admin_trip");
+        const id = data.driverId;
+        const driver = await fireStore.collection("drivers").doc(id);
+        const driverData = await driver.get();
+        if (!driverData.exists) {
+            return res.render("admin/admin_trip_add.ejs",{check : false});
+        } else {
+            await fireStore.collection("trips").doc().set(data);
+             return res.redirect("./admin_trip");
+        }
+        // await fireStore.collection("trips").doc().set(data);
+        // return res.redirect("./admin_trip");
     } catch (error) {
         res.status(400).send(error.message);
     }
