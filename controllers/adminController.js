@@ -27,12 +27,12 @@ const checkLoginAdmin = async (req, res, next) => {
         }
         else {
             check = false;
-            return res.render('user/login_user.ejs', {check : check});
+            return res.render('admin/login_admin.ejs', {check : check});
         }
     }
     else {
         check = false;
-        return res.render('user/login_user.ejs', {check : check});
+        return res.render('admin/login_admin.ejs', {check : check});
     }
 }
 const getPageAdmin = async (req, res, next) => {
@@ -100,7 +100,7 @@ const getTripAdmin = async (req, res, next) => {
     }
 };
 const addTripAdmin = async (req, res, next) => {
-    return res.render('admin/admin_trip_add.ejs',{check : true});
+    return res.render('admin/admin_trip_add.ejs',{check : true, checkDate : true});
 };
 const getVehicleAdmin = async (req, res, next) => {
     try {

@@ -11,13 +11,14 @@ const addTrip = async (req, res, next) => {
         const driver = await fireStore.collection("drivers").doc(id);
         const driverData = await driver.get();
         if (!driverData.exists) {
-            return res.render("admin/admin_trip_add.ejs",{check : false});
-        } else {
-            await fireStore.collection("trips").doc().set(data);
-             return res.redirect("./admin_trip");
+            return res.render("admin/admin_trip_add.ejs",{check : false, checkDate : true});
+        } 
+        if (data.departureTime > data.arrivalTime){
+            return res.render("admin/admin_trip_add.ejs",{check : true, checkDate : false});
         }
-        // await fireStore.collection("trips").doc().set(data);
-        // return res.redirect("./admin_trip");
+        await fireStore.collection("trips").doc().set(data);
+        return res.redirect("./admin_trip");
+        
     } catch (error) {
         res.status(400).send(error.message);
     }
