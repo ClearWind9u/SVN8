@@ -37,6 +37,9 @@ const checkLoginUser = async (req, res, next) => {
 const getPageUser = async (req, res, next) => {
     return res.render('user/user_page.ejs');
 };
+const getProfileUser = async (req, res, next) => {
+    return res.render('user/user_profile.ejs');
+};
 const getDriverUser = async (req, res, next) => {
     try {
         const drivers = await fireStore.collection("drivers");
@@ -139,6 +142,7 @@ module.exports = {
     getDriverUser,
     addDriverUser,
     getPageUser,
+    getProfileUser,
     getReportUser,
     getTripUser,
     addTripUser,
