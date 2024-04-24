@@ -16,6 +16,7 @@ const addTrip = async (req, res, next) => {
         if (data.departureTime > data.arrivalTime){
             return res.render("admin/admin_trip_add.ejs",{check : true, checkDate : false});
         }
+        
         await fireStore.collection("trips").doc().set(data);
         return res.redirect("./admin_trip");
         

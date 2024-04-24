@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/styles.css" />
     <title>SVN8 DRIVER</title>
 
 </head>
@@ -202,31 +202,50 @@
 </script>
 
 <body>
-    <nav>
-        <div class="nav__header">
-            <div class="logo nav__logo">
-                <a href="user_page">SVN8<span>TEAM</span></a>
+    <div class="hero">
+        <nav>
+            <div class="nav__header">
+                <div class="logo nav__logo">
+                    <a href="user_page">SVN8<span>TEAM</span></a>
+                </div>
+                <div class="nav__menu__btn" id="menu-btn">
+                    <span><i class="ri-menu-line"></i></span>
+                </div>
             </div>
-            <div class="nav__menu__btn" id="menu-btn">
-                <span><i class="ri-menu-line"></i></span>
-            </div>
-        </div>
 
-        <ul class="nav__links" id="nav-links">
-            <li><a href="user_vehicle">Vehicle</a></li>
-            <li><a href="user_driver">Driver</a></li>
-            <li><a href="user_trip">Trip</a></li>
-            <li><a href="user_report">Team report</a></li>
-        </ul>
+            <ul class="nav__links" id="nav-links">
+                <li><a href="user_vehicle">Vehicle</a></li>
+                <li><a href="user_driver">Driver</a></li>
+                <li><a href="user_trip">Trip</a></li>
+                <li><a href="user_report">Team report</a></li>
+            </ul>
 
-        <a href="..">
-            <div class="explore__btn">
-                <button class="btn">
-                    Log Out <span><i class="ri-arrow-right-line"></i></span>
-                </button>
+            <i class="ri-account-circle-fill ri-2x" onclick="toggleMenu()"></i>
+        
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+        
+                <div class="user-info">
+                    <i class="ri-user-2-fill ri-2x"></i>
+                    <p>Nguyen Van A</p>
+                </div>
+        
+                <hr>
+        
+                <a href="user_profile" class="sub-menu-link">
+                    <i class="ri-id-card-line ri-2x"></i>
+                    <p>Driver Profile</p>
+                </a>
+        
+                <a href=".." class="sub-menu-link">
+                    <i class="ri-logout-box-r-line ri-2x"></i>
+                    <p>Log Out</p>
+                </a>
+        
+                </div>
             </div>
-        </a>
-    </nav>
+        </nav>
+    </div>
 
     <header class="section__container header__container" id="home">
         <div class="header__image">
