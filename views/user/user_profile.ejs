@@ -11,7 +11,33 @@
     <link rel="stylesheet" href="styles.css" />
     <title>SVN8 VEHICLE TEAM</title>
 </head>
-
+<script>
+    function trimInput() {
+        let isNum = true;
+        $(".input").each(function(index, val){
+            const inputValue =  $(this).val().trim();
+            const name = $(this).attr('name');
+            $(this).val(inputValue);
+            if (name == "phoneNumber" || name == "yearOfExperience" || name == "drivingLicenseNumber" || name == "identityCardNumber"){
+                isNum = isNum && !isNaN($(this).val());
+            }
+        });
+        if (!isNum) {
+            $(".input").each(function(index, val){
+                $(this).val("");
+            });
+            alert("You must enter the right format of the input!");
+        }
+    }
+    function checkNullObj(obj) {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key) && typeof obj[key] === 'string' && obj[key].trim() === '') {
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
 <body>
     <div class="hero">
         <nav>
@@ -39,7 +65,7 @@
 
                     <div class="user-info">
                         <i class="ri-user-2-fill ri-2x"></i>
-                        <p>Driver 01</p>
+                        <p> <%- user.name %> </p>
                     </div>
 
                     <hr>
@@ -86,19 +112,19 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" value="Driver 01">
+                                        <input type="text" class="form-control" value= <%- user.name %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Identity Card Number</label>
-                                        <input type="text" class="form-control" value="0123BAC456">
+                                        <input type="text" class="form-control" value= <%- user.identityCardNumber %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" value="Driver Address 01">
+                                        <input type="text" class="form-control" value= <%- user.address %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" value="0123456789">
+                                        <input type="text" class="form-control" value= <%- user.phoneNumber %>>
                                     </div>
                                 </div>
                             </div>
@@ -107,22 +133,22 @@
                                 <div class="card-body pb-2">
                                     <div class="form-group">
                                         <label class="form-label">Driver License Number</label>
-                                        <input type="text" class="form-control" value="ABC123456">
+                                        <input type="text" class="form-control" value= <%- user.drivingLicenseNumber %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Driver License Class</label>
-                                        <input type="text" class="form-control" value="A">
+                                        <input type="text" class="form-control" value= <%- user.drivingLicenseClass %>>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Country</label>
                                         <select class="custom-select">
-                                            <option>VietNam</option>
-                                            <option selected>Others</option>
+                                            <option selected>VietNam</option>
+                                            <option>Others</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Year of Experience</label>
-                                        <input type="text" class="form-control" value="5">
+                                        <input type="text" class="form-control" value= <%- user.yearOfExperience %>>
                                     </div>
                                 </div>
                             </div>
@@ -151,10 +177,9 @@
                 </div>
             </div>
             <div class="text-right mt-3">
-                <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                <button type="button" class="btn btn-default">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="trimInput()">Save changes</button>&nbsp;
+                <a href="user_profile"><button type="button" class="btn btn-default">Cancel</button></a>
             </div>
-
     </section>
 
 

@@ -6,13 +6,11 @@ const {
     checkLoginUser,
 
     getDriverUser,
-    addDriverUser,
 
     getVehicleUser,
-    addVehicleUser,
 
-    addTripUser,
     getTripUser,
+    
     getProfileUser,
 } = require("../controllers/userController");
 
@@ -26,13 +24,10 @@ router.get("/user_profile", getProfileUser);
 router.get("/user_report", getReportUser);
 
 router.get("/user_driver", getDriverUser);
-router.get("/user_driver_add", addDriverUser);
 
 router.get("/user_vehicle", getVehicleUser);
-router.get("/user_vehicle_add", addVehicleUser);
 
 router.get("/user_trip", getTripUser);
-router.get("/user_trip_add", addTripUser);
 
 module.exports = {
     routes: router,

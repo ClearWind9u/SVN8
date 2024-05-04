@@ -26,16 +26,9 @@ const getAllAdmins = async (req, res, next) => {
       data.forEach((doc) => {
         const admin = new Admin(
           doc.id,
-          doc.data().firstName,
-          doc.data().lastName,
-          doc.data().fatherName,
-          doc.data().class,
-          doc.data().age,
+          doc.data().name,
           doc.data().phoneNumber,
-          doc.data().subject,
-          doc.data().year,
-          doc.data().semester,
-          doc.data().status
+          doc.data().password
         );
         adminsArray.push(admin);
       });

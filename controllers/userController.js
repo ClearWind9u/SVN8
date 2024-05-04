@@ -7,6 +7,7 @@ const Trip = require("../models/trip");
 const fireStore = firebase.firestore();
 
 let check = true;
+var USER;
 
 const getLoginUser = async (req, res, next) => {
     check = true;
@@ -22,7 +23,8 @@ const checkLoginUser = async (req, res, next) => {
     if (user) {
         if (user.password == data.password) {
             check = true;
-            return res.redirect("./user_page");
+            USER = user;
+            return res.redirect('./user_page');
         }
         else {
             check = false;
@@ -35,10 +37,10 @@ const checkLoginUser = async (req, res, next) => {
     }
 }
 const getPageUser = async (req, res, next) => {
-    return res.render('user/user_page.ejs');
+    return res.render('user/user_page.ejs', { user : USER });
 };
 const getProfileUser = async (req, res, next) => {
-    return res.render('user/user_profile.ejs');
+    return res.render('user/user_profile.ejs', { user : USER });
 };
 const getDriverUser = async (req, res, next) => {
     try {
@@ -62,16 +64,13 @@ const getDriverUser = async (req, res, next) => {
                 driversArray.push(driver);
             });
         }
-        return res.render('user/user_driver.ejs', { driversArray: driversArray });
+        return res.render('user/user_driver.ejs', { driversArray: driversArray, user : USER});
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
-const addDriverUser = async (req, res, next) => {
-    return res.render('user/user_driver_add.ejs');
-};
 const getReportUser = async (req, res, next) => {
-    return res.render('user/user_report.ejs');
+    return res.render('user/user_report.ejs', { user : USER });
 };
 const getTripUser = async (req, res, next) => {
     try {
@@ -96,13 +95,10 @@ const getTripUser = async (req, res, next) => {
                 tripsArray.push(trip);
             });
         }
-        return res.render('user/user_trip.ejs', { tripsArray: tripsArray });
+        return res.render('user/user_trip.ejs', { tripsArray: tripsArray , user : USER});
     } catch (error) {
         res.status(400).send(error.message);
     }
-};
-const addTripUser = async (req, res, next) => {
-    return res.render('user/user_trip_add.ejs');
 };
 const getVehicleUser = async (req, res, next) => {
     try {
@@ -127,25 +123,19 @@ const getVehicleUser = async (req, res, next) => {
                 vehiclesArray.push(vehicle);
             });
         }
-        return res.render('user/user_vehicle.ejs', { vehiclesArray: vehiclesArray });
+        return res.render('user/user_vehicle.ejs', { vehiclesArray: vehiclesArray , user : USER });
     } catch (error) {
         res.status(400).send(error.message);
     }
-};
-const addVehicleUser = async (req, res, next) => {
-    return res.render('user/user_vehicle_add.ejs');
 };
 
 module.exports = {
     getLoginUser,
     checkLoginUser,
     getDriverUser,
-    addDriverUser,
     getPageUser,
     getProfileUser,
     getReportUser,
     getTripUser,
-    addTripUser,
     getVehicleUser,
-    addVehicleUser,
 };

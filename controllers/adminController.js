@@ -8,6 +8,7 @@ const Admin = require("../models/admin");
 const fireStore = firebase.firestore();
 
 let check = true;
+var ADMIN;
 
 const getLoginAdmin = async (req, res, next) => {
     check = true;
@@ -23,6 +24,7 @@ const checkLoginAdmin = async (req, res, next) => {
     if (admin) {
         if (admin.password == data.password) {
             check = true;
+            ADMIN = admin;
             return res.redirect("./admin_page");
         }
         else {
@@ -36,7 +38,7 @@ const checkLoginAdmin = async (req, res, next) => {
     }
 }
 const getPageAdmin = async (req, res, next) => {
-    return res.render('admin/admin_page.ejs');
+    return res.render('admin/admin_page.ejs', { admin : ADMIN });
 };
 const getDriverAdmin = async (req, res, next) => {
     try {
@@ -60,16 +62,16 @@ const getDriverAdmin = async (req, res, next) => {
                 driversArray.push(driver);
             });
         }
-        return res.render('admin/admin_driver.ejs', { driversArray: driversArray });
+        return res.render('admin/admin_driver.ejs', { driversArray: driversArray, admin : ADMIN });
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
 const addDriverAdmin = async (req, res, next) => {
-    return res.render('admin/admin_driver_add.ejs');
+    return res.render('admin/admin_driver_add.ejs', { admin : ADMIN });
 };
 const getReportAdmin = async (req, res, next) => {
-    return res.render('admin/admin_report.ejs');
+    return res.render('admin/admin_report.ejs', { admin : ADMIN });
 };
 const getTripAdmin = async (req, res, next) => {
     try {
@@ -94,13 +96,13 @@ const getTripAdmin = async (req, res, next) => {
                 tripsArray.push(trip);
             });
         }
-        return res.render('admin/admin_trip.ejs', { tripsArray: tripsArray });
+        return res.render('admin/admin_trip.ejs', { tripsArray: tripsArray, admin : ADMIN });
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
 const addTripAdmin = async (req, res, next) => {
-    return res.render('admin/admin_trip_add.ejs',{check : true, checkDate : true});
+    return res.render('admin/admin_trip_add.ejs',{ check : true, checkDate : true, admin : ADMIN });
 };
 const getVehicleAdmin = async (req, res, next) => {
     try {
@@ -125,13 +127,13 @@ const getVehicleAdmin = async (req, res, next) => {
                 vehiclesArray.push(vehicle);
             });
         }
-        return res.render('admin/admin_vehicle.ejs', { vehiclesArray: vehiclesArray });
+        return res.render('admin/admin_vehicle.ejs', { vehiclesArray: vehiclesArray , admin : ADMIN });
     } catch (error) {
         res.status(400).send(error.message);
     }
 };
 const addVehicleAdmin = async (req, res, next) => {
-    return res.render('admin/admin_vehicle_add.ejs');
+    return res.render('admin/admin_vehicle_add.ejs', { admin : ADMIN });
 };
 
 module.exports = {

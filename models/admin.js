@@ -3,12 +3,12 @@ class Account {
       id,
       phoneNumber,
       password,
-      role,
+      name,
     ) {
       this.id = id;
       this.phoneNumber = phoneNumber;
       this.password = password;
-      this.role = role;
+      this.name = name;
     }
   }
   
