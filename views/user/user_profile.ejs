@@ -86,7 +86,7 @@
     </div>
 
     <section class="section__container">
-
+        <form action="./edit-user-profile" method="post">
             <h4 class="font-weight-bold py-3 mb-4">
                 Account settings
             </h4>
@@ -106,84 +106,82 @@
                         </div>
                     </div>
                     <div class="col-md-9">
-                        <div class="tab-content">
-                            <div class="tab-pane fade active show" id="account-general">
-                                <hr class="border-light m-0">
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        <label class="form-label">Name</label>
-                                        <input type="text" class="form-control" value= <%- user.name %>>
+                        
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="account-general">
+                                    <hr class="border-light m-0">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label class="form-label">Name</label>
+                                            <input type="text" class="form-control"  name= "name" required value= <%- user.name %>>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Identity Card Number</label>
+                                            <input type="text" class="form-control" name= "identityCardNumber" required value=<%- user.identityCardNumber %>>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Address</label>
+                                            <input type="text" class="form-control" name= "address" required value= <%- user.address %>>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control" name= "phoneNumber" required value= <%- user.phoneNumber %>>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Identity Card Number</label>
-                                        <input type="text" class="form-control" value= <%- user.identityCardNumber %>>
+                                </div>
+                                <div class="tab-pane fade" id="account-info">
+                                    <div class="card-body pb-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Driver License Number</label>
+                                            <input type="text" class="form-control" name= "drivingLicenseNumber" required value= <%- user.drivingLicenseNumber %>>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Driver License Class</label>
+                                            <input type="text" class="form-control" name= "drivingLicenseClass" required value= <%- user.drivingLicenseClass %>>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Country</label>
+                                            <select class="custom-select">
+                                                <option selected>VietNam</option>
+                                                <option>Others</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Year of Experience</label>
+                                            <input type="text" class="form-control" name= "yearOfExperience" required value= <%- user.yearOfExperience %>>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Address</label>
-                                        <input type="text" class="form-control" value= <%- user.address %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" value= <%- user.phoneNumber %>>
+                                </div>
+                                <div class="tab-pane fade" id="account-social-links">
+                                    <div class="card-body pb-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Twitter</label>
+                                            <input type="text" class="form-control" value="https://twitter.com/user">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Facebook</label>
+                                            <input type="text" class="form-control" value="https://www.facebook.com/user">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Google+</label>
+                                            <input type="text" class="form-control" value>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">LinkedIn</label>
+                                            <input type="text" class="form-control" value>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="tab-pane fade" id="account-info">
-                                <div class="card-body pb-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Driver License Number</label>
-                                        <input type="text" class="form-control" value= <%- user.drivingLicenseNumber %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Driver License Class</label>
-                                        <input type="text" class="form-control" value= <%- user.drivingLicenseClass %>>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Country</label>
-                                        <select class="custom-select">
-                                            <option selected>VietNam</option>
-                                            <option>Others</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Year of Experience</label>
-                                        <input type="text" class="form-control" value= <%- user.yearOfExperience %>>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="account-social-links">
-                                <div class="card-body pb-2">
-                                    <div class="form-group">
-                                        <label class="form-label">Twitter</label>
-                                        <input type="text" class="form-control" value="https://twitter.com/user">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Facebook</label>
-                                        <input type="text" class="form-control" value="https://www.facebook.com/user">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Google+</label>
-                                        <input type="text" class="form-control" value>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">LinkedIn</label>
-                                        <input type="text" class="form-control" value>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="text-right mt-3">
-                <button type="button" class="btn btn-primary" onclick="trimInput()">Save changes</button>&nbsp;
+                <button type="submit" class="btn btn-primary" onclick="trimInput()">Save changes</button>
                 <a href="user_profile"><button type="button" class="btn btn-default">Cancel</button></a>
             </div>
+        </form>
     </section>
-
-
-
 
     <footer class="footer" id="contact">
         <div class="footer__bar">

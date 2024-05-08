@@ -89,7 +89,6 @@ const updateDriver = async (req, res, next) => {
         user = JSON.parse(user);
         const id = user.id;
         delete user.id;
-        // const data = req.body;
         const driver = await fireStore.collection("drivers").doc(id);
         await driver.update(user);
         return res.redirect("../admin_driver");

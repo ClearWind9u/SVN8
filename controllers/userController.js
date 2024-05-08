@@ -19,6 +19,7 @@ const checkLoginUser = async (req, res, next) => {
     const driver = await fireStore.collection("drivers").where("phoneNumber", "==", data.phoneNumber).get();
     driver.forEach(doc => {
         user = doc.data();
+        user.id = doc.id;
     });
     if (user) {
         if (user.password == data.password) {
@@ -41,6 +42,18 @@ const getPageUser = async (req, res, next) => {
 };
 const getProfileUser = async (req, res, next) => {
     return res.render('user/user_profile.ejs', { user : USER });
+};
+const editProfileUser = async (req, res, next) => {
+    try {
+        const data = req.body;
+        let id = USER.id;
+        USER = data;
+        const driver = await fireStore.collection("drivers").doc(id);
+        await driver.update(USER);
+        return res.redirect('./user_profile');
+    } catch (error) {
+        res.status(400).send("error");
+    }
 };
 const getDriverUser = async (req, res, next) => {
     try {
@@ -135,6 +148,7 @@ module.exports = {
     getDriverUser,
     getPageUser,
     getProfileUser,
+    editProfileUser,
     getReportUser,
     getTripUser,
     getVehicleUser,

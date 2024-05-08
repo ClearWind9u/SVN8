@@ -20,6 +20,7 @@ const checkLoginAdmin = async (req, res, next) => {
     const driver = await fireStore.collection("admin").where("phoneNumber", "==", data.phoneNumber).get();
     driver.forEach(doc => {
         admin = doc.data();
+        admin.id = doc.id;
     });
     if (admin) {
         if (admin.password == data.password) {
