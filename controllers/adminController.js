@@ -17,8 +17,8 @@ const getLoginAdmin = async (req, res, next) => {
 const checkLoginAdmin = async (req, res, next) => {
     const data = req.body;
     let admin;
-    const driver = await fireStore.collection("admin").where("phoneNumber", "==", data.phoneNumber).get();
-    driver.forEach(doc => {
+    const admins = await fireStore.collection("admin").where("phoneNumber", "==", data.phoneNumber).get();
+    admins.forEach(doc => {
         admin = doc.data();
         admin.id = doc.id;
     });
@@ -90,10 +90,10 @@ const getTripAdmin = async (req, res, next) => {
                     doc.data().departureTime,
                     doc.data().destination,
                     doc.data().driverId,
-                    doc.data().tripStatus,
                     doc.data().vehicleId,
                     doc.data().fuelCost
                 );
+                console.log(trip);
                 tripsArray.push(trip);
             });
         }

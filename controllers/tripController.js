@@ -7,19 +7,26 @@ const fireStore = firebase.firestore();
 const addTrip = async (req, res, next) => {
     try {
         const data = req.body;
-        const id = data.driverId;
-        const driver = await fireStore.collection("drivers").doc(id);
+        console.log(data);
+        const admins = await fireStore.collection("admin").get();
+
+        const driverid = data.driverId;
+        const driver = await fireStore.collection("drivers").doc(driverid);
         const driverData = await driver.get();
-        if (!driverData.exists) {
-            return res.render("admin/admin_trip_add.ejs",{check : false, checkDate : true});
+
+        const vehicleid = data.vehicleId;
+        const vehicle = await fireStore.collection("vehicles").doc(vehicleid);
+        const vehicleData = await vehicle.get();
+
+        if (!driverData.exists || !vehicleData.exists) {
+            return res.render("admin/admin_trip_add.ejs",{ check : false, checkDate : true, admin : admins });
         } 
         if (data.departureTime > data.arrivalTime){
-            return res.render("admin/admin_trip_add.ejs",{check : true, checkDate : false});
+            return res.render("admin/admin_trip_add.ejs",{ check : true, checkDate : false, admin : admins });
         }
         
         await fireStore.collection("trips").doc().set(data);
         return res.redirect("./admin_trip");
-        
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -41,7 +48,6 @@ const getAllTrips = async (req, res, next) => {
                     doc.data().departureTime,
                     doc.data().destination,
                     doc.data().driverId,
-                    doc.data().tripStatus,
                     doc.data().vehicleId,
                     doc.data().fuelCost
                 );

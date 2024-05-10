@@ -6,7 +6,6 @@ class Trip {
         departureTime,
         destination,
         driverId,
-        tripStatus,
         vehicleId,
         fuelCost,
     ) {
@@ -16,7 +15,6 @@ class Trip {
         this.departureTime = departureTime;
         this.destination = destination;
         this.driverId = driverId;
-        this.tripStatus = tripStatus;
         this.vehicleId = vehicleId;
         this.fuelCost = fuelCost;
     }

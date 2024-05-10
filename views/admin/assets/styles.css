@@ -604,7 +604,7 @@ form .fields .input-field {
 }
 
 .input-field input[type="date"] {
-  color: var(--primary-color-light);
+  color: var(--text-dark);
 }
 
 .container form button {
