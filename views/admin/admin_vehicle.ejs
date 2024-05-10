@@ -22,6 +22,18 @@
         }
         return true;
     }
+    function checkNumObj(obj) {
+        let isNum = true;
+        for (const key in obj) {
+            if (key == "dimension" || key == "loadCapacity" || key == "vehicleCost") {
+                isNum = isNum && !isNaN(obj[key]);
+            }
+        }
+        if (!isNum) {
+            return false;
+        }
+        return true;
+    }
     $(document).ready(function ($) {
         //ajax row data
         var ajax_data = <%- JSON.stringify(vehiclesArray) %>;
@@ -260,15 +272,20 @@
             //use the "arr"	object for your ajax call
             $.extend(arr, { id: row_id });
             let check = checkNullObj(arr);
-                if(check){ 
-                    let user = encodeURIComponent(JSON.stringify(arr));
-                    alert("Edit successfully!");
-                    window.location.href = "./edit-vehicle/" + user;
-                }
-                else {
-                    alert("Edit failed. You must not leave the input empty!!!");
-                    window.location.href = "./admin_vehicle";
-                };
+            let checkNum = checkNumObj(arr);
+            if(check && checkNum){ 
+                let user = encodeURIComponent(JSON.stringify(arr));
+                alert("Edit successfully!");
+                window.location.href = "./edit-trip/" + user;
+            }
+            else if (checkNum) {
+                alert("Edit failed. You must not leave the input empty!!!");
+                window.location.href = "./admin_trip";
+            }
+            else {
+                alert("Edit failed. You must enter the right format of the input!");
+                window.location.href = "./admin_trip";
+            };
         });
     }); 
     </script>

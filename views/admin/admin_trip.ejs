@@ -22,6 +22,36 @@
         }
         return true;
     }
+    function checkNumObj(obj) {
+        let isNum = true;
+        for (const key in obj) {
+            if (key === "fuelCost") {
+                isNum = isNum && !isNaN(obj[key]);
+            }
+        }
+        if (!isNum) {
+            return false;
+        }
+        return true;
+    }
+    function isValidDate(dateString) {
+        const regEx = /^\d{4}-\d{2}-\d{2}$/;
+        if(!dateString.match(regEx)) return false;  // Invalid format
+        const d = new Date(dateString);
+        const dNum = d.getTime();
+        if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+        return d.toISOString().slice(0,10) === dateString;
+    }
+    function checkDateObj(obj){
+        let checkValidDate = true;
+        for (const key in obj) {
+            if (key === "arrivalTime" || key === "departureTime") {
+                checkValidDate = isValidDate(obj[key]) && checkValidDate;
+            }
+        }
+        return checkValidDate;
+    }
+
     $(document).ready(function ($) {
         //ajax row data
         var ajax_data = <%- JSON.stringify(tripsArray) %>;
@@ -254,15 +284,27 @@
             //use the "arr"	object for your ajax call
             $.extend(arr, { id: row_id });
             let check = checkNullObj(arr);
-                if(check){ 
+            let checkNum = checkNumObj(arr);
+            let checkValidDate = checkDateObj(arr);
+            if(check && checkNum && checkValidDate){ 
+                if (arr["departureTime"] < arr["arrivalTime"]) {
                     let user = encodeURIComponent(JSON.stringify(arr));
                     alert("Edit successfully!");
                     window.location.href = "./edit-trip/" + user;
                 }
                 else {
-                    alert("Edit failed. You must not leave the input empty!!!");
+                    alert("Departure time must be before arrival time!");
                     window.location.href = "./admin_trip";
-                };
+                }
+            }
+            else if (!checkNum || !checkValidDate) {
+                alert("Edit failed. You must enter the right format of the input!");
+                window.location.href = "./admin_trip";
+            }
+            else {
+                alert("Edit failed. You must not leave the input empty!!!");
+                window.location.href = "./admin_trip";
+            };
         });
     }); 
 </script>

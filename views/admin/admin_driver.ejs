@@ -22,6 +22,18 @@
             }
             return true;
         }
+        function checkNumObj(obj) {
+        let isNum = true;
+        for (const key in obj) {
+            if (key == "phoneNumber" || key == "yearOfExperience" || key == "drivingLicenseNumber" || key == "identityCardNumber") {
+                isNum = isNum && !isNaN(obj[key]);
+            }
+        }
+        if (!isNum) {
+            return false;
+        }
+        return true;
+    }
         $(document).ready(function ($) {
             //ajax row data
             var ajax_data = <%- JSON.stringify(driversArray) %>;
@@ -56,7 +68,7 @@
                 var row_id = val['id'];
                 //loop through ajax row data
                 tbl += '<tr row_id="' + row_id + '">';
-                tbl += '<td><div class="row_data" edit_type="click" col_name="id">' + val['id'] + '</div></td>'; 
+                tbl += '<td><div edit_type="click" col_name="id">' + val['id'] + '</div></td>'; 
                 tbl += '<td><div class="row_data" edit_type="click" col_name="name">' + val['name'] + '</div></td>';
                 tbl += '<td><div class="row_data" edit_type="click" col_name="address">' + val['address'] + '</div></td>';
                 tbl += '<td><div class="row_data" edit_type="click" col_name="phoneNumber">' + val['phoneNumber'] + '</div></td>';
@@ -147,7 +159,9 @@
                     .attr('edit_type', 'button')
                     .addClass('bg-warning')
                     .css('padding', '3px')
-
+                tbl_row.find(
+                    '.row_data'
+                )
                 //--->add the original entry > start
                 tbl_row.find('.row_data').each(function (index, val) {
                     //this will help in case user decided to click on cancel button
@@ -254,17 +268,22 @@
                 //use the "arr"	object for your ajax call
                 $.extend(arr, { id: row_id });
                 let check = checkNullObj(arr);
-            if(check){ 
-                let user = encodeURIComponent(JSON.stringify(arr));
-                alert("Edit successfully!");
-                window.location.href = "./edit-driver/" + user;
-            }
-            else {
-                alert("Edit failed. You must not leave the input empty!!!");
-                window.location.href = "./admin_driver";
-            };
+                let checkNum = checkNumObj(arr);
+                if(check && checkNum){ 
+                    let user = encodeURIComponent(JSON.stringify(arr));
+                    alert("Edit successfully!");
+                    window.location.href = "./edit-trip/" + user;
+                }
+                else if (checkNum) {
+                    alert("Edit failed. You must not leave the input empty!!!");
+                    window.location.href = "./admin_trip";
+                }
+                else {
+                    alert("Edit failed. You must enter the right format of the input!");
+                    window.location.href = "./admin_trip";
+                };
+            });
         });
-    });
     </script>
     <div class="hero">
         <nav>
