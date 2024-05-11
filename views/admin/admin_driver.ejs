@@ -25,7 +25,7 @@
         function checkNumObj(obj) {
         let isNum = true;
         for (const key in obj) {
-            if (key == "phoneNumber" || key == "yearOfExperience" || key == "drivingLicenseNumber" || key == "identityCardNumber") {
+            if (key === "phoneNumber" || key === "yearOfExperience" || key === "drivingLicenseNumber" || key === "identityCardNumber") {
                 isNum = isNum && !isNaN(obj[key]);
             }
         }
@@ -272,15 +272,15 @@
                 if(check && checkNum){ 
                     let user = encodeURIComponent(JSON.stringify(arr));
                     alert("Edit successfully!");
-                    window.location.href = "./edit-trip/" + user;
+                    window.location.href = "./edit-driver/" + user;
                 }
                 else if (checkNum) {
                     alert("Edit failed. You must not leave the input empty!!!");
-                    window.location.href = "./admin_trip";
+                    window.location.href = "./admin_driver";
                 }
                 else {
                     alert("Edit failed. You must enter the right format of the input!");
-                    window.location.href = "./admin_trip";
+                    window.location.href = "./admin_driver";
                 };
             });
         });

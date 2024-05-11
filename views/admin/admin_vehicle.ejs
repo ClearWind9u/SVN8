@@ -25,7 +25,7 @@
     function checkNumObj(obj) {
         let isNum = true;
         for (const key in obj) {
-            if (key == "dimension" || key == "loadCapacity" || key == "vehicleCost") {
+            if (key === "dimension" || key === "loadCapacity" || key === "vehicleCost") {
                 isNum = isNum && !isNaN(obj[key]);
             }
         }
@@ -72,7 +72,7 @@
             tbl += '<td ><div class="row_data" edit_type="click" col_name="carManufacturer">' + val['carManufacturer'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="dimension">' + val['dimension'] + '</div></td>';
             tbl += '<td ><div class="#" edit_type="click" col_name="licensePlate">' + val['licensePlate'] + '</div></td>';
-            tbl += '<td ><div class="row_data" edit_type="click" col_name=" loadCapacity">' + val['loadCapacity'] + '</div></td>';
+            tbl += '<td ><div class="row_data" edit_type="click" col_name="loadCapacity">' + val['loadCapacity'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="fuelType">' + val['fuelType'] + '</div></td>';
             tbl += '<td ><div class="row_data" edit_type="click" col_name="vehicleCost">' + val['vehicleCost'] + '</div></td>';
             //--->maintainance options > start
@@ -276,15 +276,15 @@
             if(check && checkNum){ 
                 let user = encodeURIComponent(JSON.stringify(arr));
                 alert("Edit successfully!");
-                window.location.href = "./edit-trip/" + user;
+                window.location.href = "./edit-vehicle/" + user;
             }
             else if (checkNum) {
                 alert("Edit failed. You must not leave the input empty!!!");
-                window.location.href = "./admin_trip";
+                window.location.href = "./admin_vehicle";
             }
             else {
                 alert("Edit failed. You must enter the right format of the input!");
-                window.location.href = "./admin_trip";
+                window.location.href = "./admin_vehicle";
             };
         });
     }); 

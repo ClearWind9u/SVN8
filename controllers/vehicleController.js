@@ -9,6 +9,7 @@ const addVehicle = async (req, res, next) => {
         const data = req.body;
         const id = data.licensePlate;
         await fireStore.collection("vehicles").doc(id).set(data);
+        console.log(data);
         return res.redirect("./admin_vehicle");
     } catch (error) {
         res.status(400).send(error.message);
