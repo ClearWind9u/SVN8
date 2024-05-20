@@ -93,7 +93,6 @@ const getTripAdmin = async (req, res, next) => {
                     doc.data().vehicleId,
                     doc.data().fuelCost
                 );
-                console.log(trip);
                 tripsArray.push(trip);
             });
         }

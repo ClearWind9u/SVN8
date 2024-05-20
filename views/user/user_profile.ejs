@@ -29,14 +29,14 @@
             alert("You must enter the right format of the input!");
         }
     }
-    function checkNullObj(obj) {
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key) && typeof obj[key] === 'string' && obj[key].trim() === '') {
-                return false;
-            }
-        }
-        return true;
-    }
+    // function checkNullObj(obj) {
+    //     for (const key in obj) {
+    //         if (obj.hasOwnProperty(key) && typeof obj[key] === 'string' && obj[key].trim() === '') {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 </script>
 <body>
     <div class="hero">
@@ -177,7 +177,7 @@
                 </div>
             </div>
             <div class="text-right mt-3">
-                <button type="submit" class="btn btn-primary" onclick="trimInput()">Save changes</button>
+                <button type="submit" class="btn btn-primary" onclick="showName()">Save changes</button>
                 <a href="user_profile"><button type="button" class="btn btn-default">Cancel</button></a>
             </div>
         </form>
@@ -188,7 +188,6 @@
             Copyright © 2024 SVN8. All rights reserved.
         </div>
     </footer>
-
 
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

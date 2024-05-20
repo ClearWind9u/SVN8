@@ -50,6 +50,7 @@ const editProfileUser = async (req, res, next) => {
         USER = data;
         const driver = await fireStore.collection("drivers").doc(id);
         await driver.update(USER);
+        USER.id = id;
         return res.redirect('./user_profile');
     } catch (error) {
         res.status(400).send("error");
@@ -101,7 +102,6 @@ const getTripUser = async (req, res, next) => {
                     doc.data().departureTime,
                     doc.data().destination,
                     doc.data().driverId,
-                    doc.data().tripStatus,
                     doc.data().vehicleId,
                     doc.data().fuelCost
                 );
